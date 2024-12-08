@@ -1,0 +1,60 @@
+<!-- templates/includes/header.html -->
+{% load static %}
+<header>
+    <nav class="navbar shadow-sm" style="background-color: black;">
+      <div class="container">
+        {% with request.resolver_match.view_name as view_name %}
+          <ul class="nav nav-pills">
+            <li class="nav-item">
+              <a class="nav-link {% if view_name == 'homepage:index' %} active {% endif %}"
+                href="{% url 'homepage:index' %}" style="color: white;">
+                Главная
+              </a>
+            </li>
+            {% if user.is_authenticated %}
+            <li class="nav-item">
+              <a class="nav-link {% if view_name == 'retail:retail_list' %} active {% endif %}"
+                href="{% url 'retail:retail_list' %}" style="color: white;">
+                Список заказов
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link {% if view_name == 'retail:retail_add' %} active {% endif %}"
+                href="{% url 'retail:retail_add' %}" style="color: white;">
+                Добавить заказ
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link {% if view_name == 'retail:product_list' %} active {% endif %}"
+                href="{% url 'retail:product_list' %}" style="color: white;">
+                Список Товаров
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link {% if view_name == 'analysis:retail_analysis' %} active {% endif %}"
+                href="{% url 'analysis:retail_analysis' %}" style="color: white;">
+                Анализ
+              </a>
+            </li>
+            <!-- Новая кнопка -->
+            <li class="nav-item">
+              <a class="nav-link{% if view_name == 'password_change' %} active {% endif %}"
+                href="{% url 'password_change' %}" style="color: white;">Изменить пароль</a>
+            </li>
+            <li class="nav-item">
+              <form method="post" action="{% url 'logout' %}">
+                {% csrf_token %}
+                <button class="nav-link" type="submit" style="color: white;">Выйти</button>
+              </form>
+            </li>
+            <span class="navbar-text" style="color: gray;">Пользователь: <b>{{ user.username }}</b></span>
+          {% else %}
+            <li class="nav-item">
+              <a class="nav-link{% if view_name == 'login' %} active {% endif %}" href="{% url 'login' %}" style="color: white;">Войти</a>
+            </li>
+          {% endif %}
+          </ul>
+        {% endwith %}
+      </div>
+    </nav>
+</header>

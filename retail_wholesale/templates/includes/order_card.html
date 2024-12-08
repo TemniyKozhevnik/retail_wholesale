@@ -1,0 +1,17 @@
+<div class="card" style="width: 40rem;">
+    <div class="card-body">
+      <h5 class="card-title">Заказ №{{ order.0 }}</h5>
+      <h6 class="card-subtitle mb-2 text-muted">
+        <small>
+          {{ order.1|date:"d E Y" }}<br>
+          Заказчик: {{ order.7 }} {{ order.8 }}, номер телефона: {{ order.9 }}<br>
+          Регион заказа: {{ order.2 }}<br>
+          Товар: {{ order.4 }} - {{ order.5 }}: {{ order.6 }}<br>
+          Стоимость: {{ order.3 }}<br>
+          <a href="{% url 'retail:retail_detail' order.0 %}">Подробнее...</a><br>
+          <a href="{% url 'retail:retail_edit' order.0 %}">Изменить</a> |
+          <a href="{% url 'retail:retail_delete' order.0 %}"> Удалить</a>
+        </small>
+      </h6>
+    </div>
+  </div>

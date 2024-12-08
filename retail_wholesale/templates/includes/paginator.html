@@ -1,0 +1,54 @@
+<!-- templates/includes/paginator.html -->
+{% if total_pages >= 2 %}
+  <nav class="my-5">
+    <ul class="pagination">
+      <!-- Если существует предыдущая страница 
+           (если мы не на первой странице) 
+           рисуем кнопку "Первая страница"... -->
+      {% if current_page > 1 %}
+        <li class="page-item">
+          <a class="page-link" href="?page=1">Первая</a>
+        </li>
+        <!-- ...и кнопку "Предыдущая" -->
+        <li class="page-item">
+          <a class="page-link" href="?page={{ current_page|add:-1 }}">
+            Предыдущая
+          </a>
+        </li>
+      {% endif %}
+      <!-- Перебираем в цикле все номера страниц -->
+      {% for i in pages %}
+        <!-- Если номер страницы совпадает с i... -->
+        {% if current_page == i %}
+          <!-- ..."подсвечиваем" кнопку: ставим класс "active"
+               и делаем не ссылку, а span (просто текстовый блок) -->
+          <li class="page-item active">
+            <span class="page-link">{{ i }}</span>
+          </li>
+        {% else %}
+          <!-- Остальные кнопки отрисовываем без подсветки, со ссылками -->
+          <li class="page-item">
+            <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+          </li>
+        {% endif %}
+      {% endfor %}
+
+      {% if current_page != total_pages %}
+        <!-- Если существует следующая страница 
+           (если мы не на последней странице) 
+           рисуем кнопку "Следующая"... -->
+        <li class="page-item">
+          <a class="page-link" href="?page={{ current_page|add:+1 }}">
+            Следующая
+          </a>
+        </li>
+        <!-- ...и кнопку "Последняя" -->
+        <li class="page-item">
+          <a class="page-link" href="?page={{ total_pages }}">
+            Последняя
+          </a>
+        </li>
+      {% endif %}
+    </ul>
+  </nav>
+{% endif %}

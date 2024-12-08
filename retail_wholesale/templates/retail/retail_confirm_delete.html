@@ -1,0 +1,24 @@
+<!-- retail/retail_confirm_delete.html -->
+{% extends "base.html" %}
+{% load django_bootstrap5 %}
+{% block content %}
+  <!-- Обращаемся через object -->
+  <h1>Удалить заказ № {{ order.0 }}</h1>
+  <div class="card col-5 m-3">
+    <div class="card-header">
+      {{ order.1|date:"d E Y" }}<br>
+      Заказчик: {{ order.7 }} {{ order.8 }}<br>
+      Номер телефона: {{ order.9 }}<br>
+      Регион заказа: {{ order.2 }}<br>
+      Товар: {{ order.12 }} - {{ order.13 }}: {{ order.11 }}<br>
+      Стоимость: {{ order.3 }}<br>
+    </div>
+    <div class="card-body">
+      <!-- В форме только csrf-токен и кнопка. Никакие другие поля тут не нужны.  -->
+      <form method="post">
+        {% csrf_token %}
+        {% bootstrap_button button_type="submit" content="Удалить" %}
+      </form>
+    </div>
+  </div>
+{% endblock content %}

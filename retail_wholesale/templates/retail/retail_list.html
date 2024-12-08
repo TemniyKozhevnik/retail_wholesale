@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}
+  Список заказов
+{% endblock %}
+{% block content %}
+  <h1 class="mb-5">Список заказов</h1>
+  {% for order in page_obj %}
+    {% include "includes/order_card.html" %}
+    {% if not forloop.last %}
+      <br>
+    {% endif %}
+  {% endfor %}
+  {% include "includes/paginator.html" %}
+{% endblock %}

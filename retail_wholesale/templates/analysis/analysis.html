@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% block title %}
+  Анализ данных
+{% endblock %}
+{% block content %}
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link {% if action == 'region' %} active {% endif %}" href="?action=region">Анализ по регионам</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {% if action == 'profit' %} active {% endif %}" href="?action=profit">Анализ по прибыли</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {% if action == 'product' %} active {% endif %}" href="?action=product">Анализ по товарам</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container mt-4">
+    <table class="table table-striped">
+        <thead class="thead-dark">
+            <tr>
+            {% if action == 'region' %}
+                <th>ID</th>
+                <th>Регион</th>
+                <th>Количество проданного товара</th>
+                <th>Группа продаж</th>
+            {% elif action == 'profit' %}
+                <th>ID</th>
+                <th>Регион</th>
+                <th>Сумма проданного товара</th>
+            {% elif action == 'product' %}
+                <th>ID</th>
+                <th>Категория</th>
+                <th>Подкатегория</th>
+                <th>Название товара</th>
+                <th>Группа продаж</th>
+                <th>Общая стоимость</th>
+            {% endif %}
+            </tr>
+        </thead>
+        <tbody>
+      {% for order in orders %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ order.0 }}</td>
+                <td>{{ order.1 }}</td>
+                <td>{{ order.2 }}</td>
+                {% if action == 'region' %}
+                    <td>{{ order.3 }}</td>
+                {% elif action == 'product' %}
+                    <td>{{ order.3 }}</td>
+                    <td>{{ order.4 }}</td>
+                    <td>{{ order.5 }}</td>
+                {% endif %}
+            </tr>
+      {% endfor %}
+        </tbody>
+      </table>
+</div>
+{% endblock %}
